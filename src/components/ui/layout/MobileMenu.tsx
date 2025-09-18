@@ -55,6 +55,7 @@ export default function MobileMenu() {
                 color="gray.100"
               >
                 <Link href="/">Home</Link>
+                <Link href="/tv-shows">TV Shows</Link>
               </DrawerActionTrigger>
             </DrawerBody>
           </DrawerContent>
