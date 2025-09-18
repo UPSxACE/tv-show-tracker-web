@@ -1,5 +1,6 @@
 import { Box, HStack } from "@chakra-ui/react";
 import Logo from "../Logo";
+import { NAVBAR_HEIGHT } from "./constants";
 import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
@@ -9,8 +10,8 @@ export default function Navbar() {
       <HStack
         as="nav"
         minH={{
-          base: "50px",
-          xl: "70px",
+          base: `${NAVBAR_HEIGHT.base}px`,
+          xl: `${NAVBAR_HEIGHT.xl}px`,
         }}
         justify={{
           xlDown: "center",
@@ -27,12 +28,12 @@ export default function Navbar() {
           xl: "none",
         }}
         h={{
-          base: "50px",
-          xl: "70px",
+          base: `${NAVBAR_HEIGHT.base}px`,
+          xl: `${NAVBAR_HEIGHT.xl}px`,
         }}
         w={{
-          base: "50px",
-          xl: "70px",
+          base: `${NAVBAR_HEIGHT.base}px`,
+          xl: `${NAVBAR_HEIGHT.xl}px`,
         }}
         flexShrink={0}
       />

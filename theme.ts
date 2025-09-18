@@ -6,6 +6,7 @@ const config = defineConfig({
             colors: {
                 brand: {
                     cta: { value: "#f05647" },
+                    ctaHover: { value: "#a73429" },
                     primary: { value: "#3e3d43" },
                     secondary: { value: "#333237" },
                     thirtiary: { value: "#2d2c30" }

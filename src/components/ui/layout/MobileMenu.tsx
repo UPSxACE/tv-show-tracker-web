@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { NAVBAR_HEIGHT } from "./constants";
 
 export default function MobileMenu() {
   return (
@@ -24,12 +25,12 @@ export default function MobileMenu() {
         <IconButton
           flexShrink={0}
           h={{
-            base: "50px",
-            xl: "70px",
+            base: `${NAVBAR_HEIGHT.base}px`,
+            xl: `${NAVBAR_HEIGHT.xl}px`,
           }}
           w={{
-            base: "50px",
-            xl: "70px",
+            base: `${NAVBAR_HEIGHT.base}px`,
+            xl: `${NAVBAR_HEIGHT.xl}px`,
           }}
           variant="plain"
           color="white"
