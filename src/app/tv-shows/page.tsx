@@ -109,7 +109,7 @@ export default function TvShows() {
           <For each={new Array(10).fill(true)}>
             {(_, i) => (
               <Box asChild key={i} bg="gray.200" h="260px">
-                <Link href={`/show/${i}`} />
+                <Link href={`/tv-shows/${i}`} />
               </Box>
             )}
           </For>
