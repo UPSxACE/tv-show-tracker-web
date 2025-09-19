@@ -123,7 +123,7 @@ export default async function TvShow({
                   w="200px"
                   flexShrink={0}
                 >
-                  <Link href={`/actor/${i}`} />
+                  <Link href={`/actors/${i}`} />
                 </Box>
               )}
             </For>
