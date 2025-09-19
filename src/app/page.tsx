@@ -1,4 +1,5 @@
 import { Center, Text, VStack } from "@chakra-ui/react";
+import Link from "next/link";
 import CtaButton from "@/components/ui/button/CtaButton";
 import { NAVBAR_HEIGHT } from "@/components/ui/layout/constants";
 
@@ -50,8 +51,8 @@ export default function Home() {
           <Text mt={1.5} textAlign="center" textStyle="2xl">
             Explore, Organize and Schedule your Favorite TV Shows right here.
           </Text>
-          <CtaButton mt={8} rounded="full" size="lg">
-            Get Started
+          <CtaButton mt={8} rounded="full" size="lg" asChild>
+            <Link href="/tv-shows">Get Started</Link>
           </CtaButton>
         </VStack>
       </Center>
