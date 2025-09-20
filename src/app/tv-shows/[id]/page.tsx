@@ -120,7 +120,7 @@ export default async function TvShow({
                   key={i}
                   bg="gray.200"
                   h="240px"
-                  w="200px"
+                  w="240px"
                   flexShrink={0}
                 >
                   <Link href={`/actors/${i}`} />

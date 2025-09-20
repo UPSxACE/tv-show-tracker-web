@@ -1,0 +1,178 @@
+/* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = T | null | undefined;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+};
+
+export type Actor = {
+  __typename?: 'Actor';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  popularity: Scalars['Float']['output'];
+  profileUrl: Scalars['String']['output'];
+};
+
+export type ActorCredit = {
+  __typename?: 'ActorCredit';
+  actorId: Scalars['Int']['output'];
+  character: Scalars['String']['output'];
+  firstAirDate?: Maybe<Scalars['String']['output']>;
+  firstCreditAirDate?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  overview?: Maybe<Scalars['String']['output']>;
+  popularity: Scalars['Float']['output'];
+  tvShowId?: Maybe<Scalars['Int']['output']>;
+};
+
+export type ActorOrderInput = {
+  direction?: InputMaybe<SortDirection>;
+  field: ActorSortableField;
+};
+
+export enum ActorSortableField {
+  Id = 'id',
+  Name = 'name',
+  Popularity = 'popularity'
+}
+
+export type AllActorsInput = {
+  order?: InputMaybe<ActorOrderInput>;
+  page?: InputMaybe<PageInput>;
+};
+
+export type AllActorsPage = {
+  __typename?: 'AllActorsPage';
+  content: Array<Actor>;
+  pageable: Pageable;
+  total: Scalars['Int']['output'];
+};
+
+export type AllTvShowsFilterInput = {
+  genreId?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type AllTvShowsInput = {
+  filter?: InputMaybe<AllTvShowsFilterInput>;
+  order?: InputMaybe<TvShowOrderInput>;
+  page?: InputMaybe<PageInput>;
+};
+
+export type AllTvShowsPage = {
+  __typename?: 'AllTvShowsPage';
+  content: Array<TvShow>;
+  pageable: Pageable;
+  total: Scalars['Int']['output'];
+};
+
+export type Genre = {
+  __typename?: 'Genre';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type PageInput = {
+  page?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type Pageable = {
+  __typename?: 'Pageable';
+  pageNumber: Scalars['Int']['output'];
+  pageSize: Scalars['Int']['output'];
+};
+
+export type Query = {
+  __typename?: 'Query';
+  allActors: AllActorsPage;
+  allGenres: Array<Genre>;
+  allTvShows: AllTvShowsPage;
+  getActorCredits: Array<ActorCredit>;
+};
+
+
+export type QueryAllActorsArgs = {
+  input?: InputMaybe<AllActorsInput>;
+};
+
+
+export type QueryAllTvShowsArgs = {
+  input?: InputMaybe<AllTvShowsInput>;
+};
+
+
+export type QueryGetActorCreditsArgs = {
+  actorId: Scalars['Int']['input'];
+};
+
+export type Season = {
+  __typename?: 'Season';
+  airDate?: Maybe<Scalars['String']['output']>;
+  episodeCount: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  seasonNumber: Scalars['Int']['output'];
+};
+
+export enum SortDirection {
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
+
+export type TvShow = {
+  __typename?: 'TvShow';
+  firstAirDate?: Maybe<Scalars['String']['output']>;
+  genres: Array<Genre>;
+  id: Scalars['ID']['output'];
+  inProduction: Scalars['Boolean']['output'];
+  lastAirDate?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  numberOfEpisodes: Scalars['Int']['output'];
+  numberOfSeasons: Scalars['Int']['output'];
+  overview?: Maybe<Scalars['String']['output']>;
+  popularity: Scalars['Float']['output'];
+  posterUrl: Scalars['String']['output'];
+  seasons: Array<Season>;
+  voteAverage: Scalars['Float']['output'];
+};
+
+export type TvShowOrderInput = {
+  direction?: InputMaybe<SortDirection>;
+  field: TvShowSortableField;
+};
+
+export enum TvShowSortableField {
+  FirstAirDate = 'firstAirDate',
+  Id = 'id',
+  Name = 'name',
+  Popularity = 'popularity',
+  VoteAverage = 'voteAverage'
+}
+
+export type GetTvShowsQueryVariables = Exact<{
+  input?: InputMaybe<AllTvShowsInput>;
+}>;
+
+
+export type GetTvShowsQuery = { __typename?: 'Query', allTvShows: { __typename: 'AllTvShowsPage', total: number, pageable: { __typename: 'Pageable', pageNumber: number, pageSize: number }, content: Array<{ __typename: 'TvShow', id: string, name: string, posterUrl: string, voteAverage: number }> } };
+
+export type GetGenresQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetGenresQuery = { __typename?: 'Query', allGenres: Array<{ __typename: 'Genre', id: string, name: string }> };
+
+
+export const GetTvShowsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTvShows"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"AllTvShowsInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allTvShows"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"pageable"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"pageNumber"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"posterUrl"}},{"kind":"Field","name":{"kind":"Name","value":"voteAverage"}}]}}]}}]}}]} as unknown as DocumentNode<GetTvShowsQuery, GetTvShowsQueryVariables>;
+export const GetGenresDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGenres"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allGenres"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetGenresQuery, GetGenresQueryVariables>;

@@ -1,7 +1,6 @@
+"use client";
 import {
-  Box,
   ButtonGroup,
-  HStack,
   IconButton,
   PaginationItems,
   PaginationNextTrigger,
@@ -9,11 +8,45 @@ import {
   PaginationPrevTrigger,
   PaginationRoot,
 } from "@chakra-ui/react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
-export default function Pagination() {
+export default function Pagination({
+  page,
+  total,
+  pageSize,
+}: {
+  page: number | null;
+  total: number;
+  pageSize: number;
+}) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const createPageLink = useCallback(
+    (page: number) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", page.toString());
+
+      return `${pathname}?${params.toString()}`;
+    },
+    [searchParams, pathname],
+  );
+
+  const onPageChange = ({ page }: { page: number }) => {
+    router.push(createPageLink(page));
+  };
+
   return (
-    <PaginationRoot count={200} pageSize={20} defaultPage={1}>
+    <PaginationRoot
+      page={page ?? 1}
+      onPageChange={onPageChange}
+      count={total}
+      pageSize={pageSize}
+      defaultPage={1}
+    >
       <ButtonGroup
         display={{ mdDown: "none" }}
         pos="relative"
