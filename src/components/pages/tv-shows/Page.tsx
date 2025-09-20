@@ -87,7 +87,7 @@ export default function Page({ genres }: { genres: Genre[] }) {
 
   // prevent pagination element from flashing while changing page
   const paginationTotal = loading
-    ? (data?.allTvShows?.total ?? previousData?.allTvShows?.total)
+    ? (data?.allTvShows?.total ?? previousData?.allTvShows?.total ?? 0)
     : (data?.allTvShows?.total ?? 0);
 
   const tvShows = data?.allTvShows?.content;
@@ -107,6 +107,7 @@ export default function Page({ genres }: { genres: Genre[] }) {
         <TabsRoot mt={1} value={sort} onValueChange={onSortChange}>
           <TabsList>
             <TabsTrigger value="popular">Most Popular</TabsTrigger>
+            <TabsTrigger value="ratings">Highest Ratings</TabsTrigger>
             <TabsTrigger value="recent">Recently Added</TabsTrigger>
           </TabsList>
         </TabsRoot>
@@ -164,6 +165,14 @@ export default function Page({ genres }: { genres: Genre[] }) {
 
 function resolveSort(sort: string | null) {
   switch (sort) {
+    case "ratings":
+      return [
+        "ratings",
+        {
+          field: TvShowSortableField.VoteAverage,
+          direction: SortDirection.Desc,
+        },
+      ] as const;
     case "recent":
       return [
         "recent",
