@@ -12,7 +12,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import {
   type Genre,
   type GetTvShowsQuery,
@@ -29,8 +29,6 @@ import TvShow from "./TvShow";
 const PAGE_SIZE = 10;
 
 export default function Page({ genres }: { genres: Genre[] }) {
-  // TODO: SSR genres
-
   const searchParams = useSearchParams();
   const [sort, order] = resolveSort(searchParams.get("sort"));
   const [genre, filter] = resolveGenre(genres, searchParams.get("genre"));
@@ -146,7 +144,7 @@ export default function Page({ genres }: { genres: Genre[] }) {
           {tvShows ? (
             tvShows.map((t) => <TvShow key={t.id} tvShow={t} />)
           ) : (
-            <For each={new Array(10).fill(true)}>
+            <For each={new Array(PAGE_SIZE).fill(true)}>
               {(_, i) => <Skeleton key={i} h="260px" />}
             </For>
           )}

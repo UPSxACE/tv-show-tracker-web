@@ -26,6 +26,7 @@ export type Actor = {
 
 export type ActorCredit = {
   __typename?: 'ActorCredit';
+  actor: Actor;
   actorId: Scalars['Int']['output'];
   character: Scalars['String']['output'];
   firstAirDate?: Maybe<Scalars['String']['output']>;
@@ -100,6 +101,7 @@ export type Query = {
   allGenres: Array<Genre>;
   allTvShows: AllTvShowsPage;
   getActorCredits: Array<ActorCredit>;
+  getTvShow?: Maybe<TvShow>;
 };
 
 
@@ -115,6 +117,11 @@ export type QueryAllTvShowsArgs = {
 
 export type QueryGetActorCreditsArgs = {
   actorId: Scalars['Int']['input'];
+};
+
+
+export type QueryGetTvShowArgs = {
+  id: Scalars['Int']['input'];
 };
 
 export type Season = {
@@ -133,6 +140,7 @@ export enum SortDirection {
 
 export type TvShow = {
   __typename?: 'TvShow';
+  actorCredits: Array<ActorCredit>;
   firstAirDate?: Maybe<Scalars['String']['output']>;
   genres: Array<Genre>;
   id: Scalars['ID']['output'];
@@ -161,6 +169,13 @@ export enum TvShowSortableField {
   VoteAverage = 'voteAverage'
 }
 
+export type GetTvShowQueryVariables = Exact<{
+  id: Scalars['Int']['input'];
+}>;
+
+
+export type GetTvShowQuery = { __typename?: 'Query', getTvShow?: { __typename: 'TvShow', id: string, name: string, overview?: string | null, posterUrl: string, popularity: number, voteAverage: number, numberOfSeasons: number, numberOfEpisodes: number, firstAirDate?: string | null, lastAirDate?: string | null, inProduction: boolean, seasons: Array<{ __typename: 'Season', id: string, seasonNumber: number, name: string, episodeCount: number, airDate?: string | null }>, genres: Array<{ __typename: 'Genre', id: string, name: string }>, actorCredits: Array<{ __typename: 'ActorCredit', id: string, character: string, popularity: number, actor: { __typename?: 'Actor', id: string, name: string, popularity: number, profileUrl: string } }> } | null };
+
 export type GetTvShowsQueryVariables = Exact<{
   input?: InputMaybe<AllTvShowsInput>;
 }>;
@@ -174,5 +189,6 @@ export type GetGenresQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetGenresQuery = { __typename?: 'Query', allGenres: Array<{ __typename: 'Genre', id: string, name: string }> };
 
 
+export const GetTvShowDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTvShow"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getTvShow"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"overview"}},{"kind":"Field","name":{"kind":"Name","value":"posterUrl"}},{"kind":"Field","name":{"kind":"Name","value":"popularity"}},{"kind":"Field","name":{"kind":"Name","value":"voteAverage"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfSeasons"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfEpisodes"}},{"kind":"Field","name":{"kind":"Name","value":"firstAirDate"}},{"kind":"Field","name":{"kind":"Name","value":"lastAirDate"}},{"kind":"Field","name":{"kind":"Name","value":"inProduction"}},{"kind":"Field","name":{"kind":"Name","value":"seasons"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"seasonNumber"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"episodeCount"}},{"kind":"Field","name":{"kind":"Name","value":"airDate"}}]}},{"kind":"Field","name":{"kind":"Name","value":"genres"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"actorCredits"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"character"}},{"kind":"Field","name":{"kind":"Name","value":"popularity"}},{"kind":"Field","name":{"kind":"Name","value":"actor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"popularity"}},{"kind":"Field","name":{"kind":"Name","value":"profileUrl"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetTvShowQuery, GetTvShowQueryVariables>;
 export const GetTvShowsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTvShows"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"AllTvShowsInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allTvShows"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"pageable"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"pageNumber"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"posterUrl"}},{"kind":"Field","name":{"kind":"Name","value":"voteAverage"}}]}}]}}]}}]} as unknown as DocumentNode<GetTvShowsQuery, GetTvShowsQueryVariables>;
 export const GetGenresDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGenres"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allGenres"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetGenresQuery, GetGenresQueryVariables>;

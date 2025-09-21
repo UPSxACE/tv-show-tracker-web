@@ -1,12 +1,18 @@
-import type { GetGenresQuery } from "@/__generated__/graphql"
-
+import type { GetGenresQuery } from "@/__generated__/graphql";
+import { query } from "../apollo/ApolloServerClient";
+import GetGenres from "./gql/query";
 
 export default async function fetchGenres() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/genres`, {
+  const { data } = await query<GetGenresQuery>({
+    query: GetGenres,
+    context: {
+      fetchOptions: {
         next: {
-            revalidate: 21600 // cache for 6 hours
-        }
-    })
+          revalidate: 21600, // cache for 6 hours
+        },
+      },
+    },
+  });
 
-    return await response.json() as GetGenresQuery["allGenres"]
+  return data?.allGenres;
 }
