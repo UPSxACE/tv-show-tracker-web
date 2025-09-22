@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
-import { GetActorQuery, GetActorQueryVariables } from "@/__generated__/graphql";
+import type {
+  GetActorQuery,
+  GetActorQueryVariables,
+} from "@/__generated__/graphql";
 import { query } from "@/components/apollo/ApolloServerClient";
 import GetActor from "@/components/pages/actor/gql/query";
 import Page from "@/components/pages/actor/Page";

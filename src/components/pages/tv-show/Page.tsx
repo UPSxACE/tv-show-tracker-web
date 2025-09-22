@@ -40,7 +40,12 @@ export default function Page({
     ? new Date(tvShow.firstAirDate).getFullYear()
     : null;
 
-  console.log(tvShow.actorCredits);
+  const actorCreditsUniqueActors = tvShow.actorCredits.filter(
+    (item, index, self) => {
+      return self.findIndex((i) => i.actor.id === item.actor.id) === index;
+    },
+  );
+
   return (
     <VStack
       minH={{
@@ -121,7 +126,7 @@ export default function Page({
               Cast
             </Text>
             <HStack overflow="auto" css={CSS_NO_SCROLL}>
-              {tvShow.actorCredits.map((ac) => (
+              {actorCreditsUniqueActors.map((ac) => (
                 <Stack
                   asChild
                   key={ac.id}
@@ -142,15 +147,17 @@ export default function Page({
                       minH={0}
                       flexGrow={1}
                     />
-                    <HStack
+                    <VStack
+                      justify="center"
                       bg="gray.700/75"
                       color="white"
                       pos="absolute"
                       bottom={0}
-                      h="32px"
+                      h="48px"
                       w="full"
                       flexShrink={0}
                       px={2}
+                      gap={0}
                     >
                       <Text
                         textAlign="center"
@@ -158,9 +165,18 @@ export default function Page({
                         fontWeight="bold"
                         lineClamp={1}
                       >
+                        {ac.actor.name}
+                      </Text>
+                      <Text
+                        textAlign="center"
+                        w="full"
+                        fontWeight="bold"
+                        lineClamp={1}
+                        textStyle="sm"
+                      >
                         {ac.character}
                       </Text>
-                    </HStack>
+                    </VStack>
                   </Link>
                 </Stack>
               ))}

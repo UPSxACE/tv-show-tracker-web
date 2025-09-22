@@ -1,8 +1,10 @@
 import { Box, Button, HStack } from "@chakra-ui/react";
 import Link from "next/link";
 import Logo from "../Logo";
-import { NAVBAR_HEIGHT } from "./constants";
+import { NAVBAR_HEIGHT, NAVBAR_ITEMS } from "./constants";
 import MobileMenu from "./MobileMenu";
+import NavbarItem from "./NavbarItem";
+import UserOptions from "./UserOptions";
 
 export default function Navbar() {
   return (
@@ -24,24 +26,17 @@ export default function Navbar() {
         gap={4}
       >
         <Logo />
-        <HStack align="stretch" display={{ base: "none", xl: "flex" }}>
-          <Button
-            ml={2.5}
-            asChild
-            variant="plain"
-            minH="0"
-            h="auto"
-            borderBottom="2px solid"
-            borderBottomColor={{
-              base: "transparent",
-              _hover: "brand.cta",
-            }}
-            px={1}
-            pt={1}
-            color="gray.300"
-          >
-            <Link href="/tv-shows">TV Shows</Link>
-          </Button>
+        <HStack
+          align="stretch"
+          display={{ base: "none", xl: "flex" }}
+          flexGrow={1}
+        >
+          {NAVBAR_ITEMS.map((n) => (
+            <NavbarItem key={n.id} link={n.link}>
+              {n.label}
+            </NavbarItem>
+          ))}
+          <UserOptions />
         </HStack>
       </HStack>
       <Box

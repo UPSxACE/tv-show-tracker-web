@@ -116,10 +116,8 @@ export default function Page({ genres }: { genres: Genre[] }) {
           mt={3}
           size="sm"
           w="full"
-          overflow="auto"
-          css={CSS_NO_SCROLL}
         >
-          <TabsList minW="full">
+          <TabsList minW="full" overflow="auto" css={CSS_NO_SCROLL} maxW="full">
             <TabsTrigger minW="fit" value={"all"}>
               All
             </TabsTrigger>

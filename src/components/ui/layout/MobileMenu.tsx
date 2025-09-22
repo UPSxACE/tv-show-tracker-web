@@ -11,7 +11,9 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { NAVBAR_HEIGHT } from "./constants";
+import { NAVBAR_HEIGHT, NAVBAR_ITEMS } from "./constants";
+import MobileNavbarItem from "./MobileNavbarItem";
+import MobileUserOptions from "./MobileUserOptions";
 
 export default function MobileMenu() {
   return (
@@ -45,18 +47,14 @@ export default function MobileMenu() {
         <DrawerBackdrop />
         <DrawerPositioner>
           <DrawerContent>
-            <DrawerBody p={0}>
-              <DrawerActionTrigger
-                asChild
-                p={3}
-                pb={2.5}
-                display="block"
-                bg="brand.primary"
-                color="gray.100"
-              >
-                <Link href="/">Home</Link>
-                <Link href="/tv-shows">TV Shows</Link>
-              </DrawerActionTrigger>
+            <DrawerBody p={0} py={2} bg="brand.primary">
+              <MobileNavbarItem link="/">Home</MobileNavbarItem>
+              {NAVBAR_ITEMS.map((n) => (
+                <MobileNavbarItem key={n.id} link={n.link}>
+                  {n.label}
+                </MobileNavbarItem>
+              ))}
+              <MobileUserOptions />
             </DrawerBody>
           </DrawerContent>
         </DrawerPositioner>
