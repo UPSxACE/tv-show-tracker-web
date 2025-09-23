@@ -1,6 +1,6 @@
 "use client";
 import { useMutation, useQuery } from "@apollo/client/react";
-import { ReactNode, useContext, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo } from "react";
 import type {
   RefreshTokenMutation,
   SessionInfoQuery,

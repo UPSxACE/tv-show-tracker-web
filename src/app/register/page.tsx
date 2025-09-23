@@ -180,13 +180,14 @@ export default function Register() {
                 content={termsAndConditions}
               >
                 <Button
-                  color="gray.700"
+                  color="blue.700"
                   variant="plain"
                   p={0}
                   textStyle="sm"
                   verticalAlign="baseline"
                   minH="0"
                   h="auto"
+                  textDecoration={{ _hover: "underline" }}
                 >
                   terms and conditions
                 </Button>
