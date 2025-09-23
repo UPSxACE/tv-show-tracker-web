@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ApolloProvider from "@/components/apollo/ApolloProvider";
 import { Provider } from "@/components/cui/provider";
+import { Toaster } from "@/components/cui/toaster";
+import SessionProvider from "@/components/session/SessionProvider";
 import Navbar from "@/components/ui/layout/Navbar";
 
 const geistSans = Geist({
@@ -29,10 +31,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ApolloProvider>
-          <Provider>
-            <Navbar />
-            {children}
-          </Provider>
+          <SessionProvider>
+            <Provider>
+              <Navbar />
+              {children}
+              <Toaster />
+            </Provider>
+          </SessionProvider>
         </ApolloProvider>
       </body>
     </html>

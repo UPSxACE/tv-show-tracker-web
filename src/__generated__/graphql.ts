@@ -78,10 +78,72 @@ export type AllTvShowsPage = {
   total: Scalars['Int']['output'];
 };
 
+export type ConfirmInput = {
+  confirm: Scalars['Boolean']['input'];
+};
+
+export type FavoriteTvShowsInput = {
+  order?: InputMaybe<UserFavoriteTvShowOrderInput>;
+  page?: InputMaybe<PageInput>;
+};
+
+export type FavoriteTvShowsPage = {
+  __typename?: 'FavoriteTvShowsPage';
+  content: Array<UserFavoriteTvShow>;
+  pageable: Pageable;
+  total: Scalars['Int']['output'];
+};
+
 export type Genre = {
   __typename?: 'Genre';
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
+};
+
+export type JwtResponse = {
+  __typename?: 'JwtResponse';
+  accessToken: Scalars['String']['output'];
+};
+
+export type LoginUserInput = {
+  identifier: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  deleteAccount: Scalars['Boolean']['output'];
+  loginUser: JwtResponse;
+  logout: Scalars['Boolean']['output'];
+  refreshToken?: Maybe<JwtResponse>;
+  registerUser: Scalars['Boolean']['output'];
+  saveFavoriteTvShow: Scalars['Boolean']['output'];
+  unfavoriteTvShow: Scalars['Boolean']['output'];
+};
+
+
+export type MutationDeleteAccountArgs = {
+  input: ConfirmInput;
+};
+
+
+export type MutationLoginUserArgs = {
+  input: LoginUserInput;
+};
+
+
+export type MutationRegisterUserArgs = {
+  input: RegisterUserInput;
+};
+
+
+export type MutationSaveFavoriteTvShowArgs = {
+  tvShowId: Scalars['Int']['input'];
+};
+
+
+export type MutationUnfavoriteTvShowArgs = {
+  tvShowId: Scalars['Int']['input'];
 };
 
 export type PageInput = {
@@ -100,9 +162,11 @@ export type Query = {
   allActors: AllActorsPage;
   allGenres: Array<Genre>;
   allTvShows: AllTvShowsPage;
+  favoriteTvShows: FavoriteTvShowsPage;
   getActor?: Maybe<Actor>;
   getActorCredits: Array<ActorCredit>;
   getTvShow?: Maybe<TvShow>;
+  sessionInfo?: Maybe<SessionInfo>;
 };
 
 
@@ -113,6 +177,11 @@ export type QueryAllActorsArgs = {
 
 export type QueryAllTvShowsArgs = {
   input?: InputMaybe<AllTvShowsInput>;
+};
+
+
+export type QueryFavoriteTvShowsArgs = {
+  input: FavoriteTvShowsInput;
 };
 
 
@@ -130,6 +199,12 @@ export type QueryGetTvShowArgs = {
   id: Scalars['Int']['input'];
 };
 
+export type RegisterUserInput = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
 export type Season = {
   __typename?: 'Season';
   airDate?: Maybe<Scalars['String']['output']>;
@@ -137,6 +212,13 @@ export type Season = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   seasonNumber: Scalars['Int']['output'];
+};
+
+export type SessionInfo = {
+  __typename?: 'SessionInfo';
+  avatarUrl?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  username: Scalars['String']['output'];
 };
 
 export enum SortDirection {
@@ -175,12 +257,42 @@ export enum TvShowSortableField {
   VoteAverage = 'voteAverage'
 }
 
+export enum UserFavoriteSortableField {
+  FavoritedAt = 'favoritedAt'
+}
+
+export type UserFavoriteTvShow = {
+  __typename?: 'UserFavoriteTvShow';
+  favoritedAt: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  tvShow: TvShow;
+};
+
+export type UserFavoriteTvShowOrderInput = {
+  direction?: InputMaybe<SortDirection>;
+  field: UserFavoriteSortableField;
+};
+
 export type GetActorQueryVariables = Exact<{
   id: Scalars['Int']['input'];
 }>;
 
 
 export type GetActorQuery = { __typename?: 'Query', getActor?: { __typename: 'Actor', id: string, name: string, popularity: number, profileUrl: string } | null, getActorCredits: Array<{ __typename: 'ActorCredit', id: string, name: string, overview?: string | null, popularity: number, character: string, firstAirDate?: string | null, firstCreditAirDate?: string | null, tvShowId?: number | null }> };
+
+export type LoginUserMutationVariables = Exact<{
+  input: LoginUserInput;
+}>;
+
+
+export type LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'JwtResponse', accessToken: string } };
+
+export type RegisterUserMutationVariables = Exact<{
+  input: RegisterUserInput;
+}>;
+
+
+export type RegisterUserMutation = { __typename?: 'Mutation', registerUser: boolean };
 
 export type GetTvShowQueryVariables = Exact<{
   id: Scalars['Int']['input'];
@@ -196,13 +308,33 @@ export type GetTvShowsQueryVariables = Exact<{
 
 export type GetTvShowsQuery = { __typename?: 'Query', allTvShows: { __typename: 'AllTvShowsPage', total: number, pageable: { __typename: 'Pageable', pageNumber: number, pageSize: number }, content: Array<{ __typename: 'TvShow', id: string, name: string, posterUrl: string, voteAverage: number }> } };
 
+export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RefreshTokenMutation = { __typename?: 'Mutation', refreshToken?: { __typename?: 'JwtResponse', accessToken: string } | null };
+
+export type SessionInfoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SessionInfoQuery = { __typename?: 'Query', sessionInfo?: { __typename?: 'SessionInfo', id: string, username: string, avatarUrl?: string | null } | null };
+
 export type GetGenresQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetGenresQuery = { __typename?: 'Query', allGenres: Array<{ __typename: 'Genre', id: string, name: string }> };
 
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
+
 
 export const GetActorDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetActor"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getActor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"popularity"}},{"kind":"Field","name":{"kind":"Name","value":"profileUrl"}}]}},{"kind":"Field","name":{"kind":"Name","value":"getActorCredits"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"actorId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"overview"}},{"kind":"Field","name":{"kind":"Name","value":"popularity"}},{"kind":"Field","name":{"kind":"Name","value":"character"}},{"kind":"Field","name":{"kind":"Name","value":"firstAirDate"}},{"kind":"Field","name":{"kind":"Name","value":"firstCreditAirDate"}},{"kind":"Field","name":{"kind":"Name","value":"tvShowId"}}]}}]}}]} as unknown as DocumentNode<GetActorQuery, GetActorQueryVariables>;
+export const LoginUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LoginUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"LoginUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<LoginUserMutation, LoginUserMutationVariables>;
+export const RegisterUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RegisterUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RegisterUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"registerUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<RegisterUserMutation, RegisterUserMutationVariables>;
 export const GetTvShowDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTvShow"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getTvShow"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"overview"}},{"kind":"Field","name":{"kind":"Name","value":"posterUrl"}},{"kind":"Field","name":{"kind":"Name","value":"popularity"}},{"kind":"Field","name":{"kind":"Name","value":"voteAverage"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfSeasons"}},{"kind":"Field","name":{"kind":"Name","value":"numberOfEpisodes"}},{"kind":"Field","name":{"kind":"Name","value":"firstAirDate"}},{"kind":"Field","name":{"kind":"Name","value":"lastAirDate"}},{"kind":"Field","name":{"kind":"Name","value":"inProduction"}},{"kind":"Field","name":{"kind":"Name","value":"seasons"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"seasonNumber"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"episodeCount"}},{"kind":"Field","name":{"kind":"Name","value":"airDate"}}]}},{"kind":"Field","name":{"kind":"Name","value":"genres"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"actorCredits"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"character"}},{"kind":"Field","name":{"kind":"Name","value":"popularity"}},{"kind":"Field","name":{"kind":"Name","value":"actor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"popularity"}},{"kind":"Field","name":{"kind":"Name","value":"profileUrl"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetTvShowQuery, GetTvShowQueryVariables>;
 export const GetTvShowsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTvShows"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"AllTvShowsInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allTvShows"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"pageable"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"pageNumber"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"posterUrl"}},{"kind":"Field","name":{"kind":"Name","value":"voteAverage"}}]}}]}}]}}]} as unknown as DocumentNode<GetTvShowsQuery, GetTvShowsQueryVariables>;
+export const RefreshTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RefreshToken"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"refreshToken"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<RefreshTokenMutation, RefreshTokenMutationVariables>;
+export const SessionInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SessionInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sessionInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"avatarUrl"}}]}}]}}]} as unknown as DocumentNode<SessionInfoQuery, SessionInfoQueryVariables>;
 export const GetGenresDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGenres"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allGenres"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetGenresQuery, GetGenresQueryVariables>;
+export const LogoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Logout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"logout"}}]}}]} as unknown as DocumentNode<LogoutMutation, LogoutMutationVariables>;

@@ -3,17 +3,18 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 export default function NavbarItem({
+  onClick,
   link,
   children,
   ...props
 }: {
-  link: string;
+  link?: string;
   children: ReactNode;
 } & ButtonProps) {
   return (
     <Button
-      ml={2.5}
       asChild
+      ml={2.5}
       variant="plain"
       minH="0"
       h="auto"
@@ -27,7 +28,21 @@ export default function NavbarItem({
       color="gray.300"
       {...props}
     >
-      <Link href={link}>{children}</Link>
+      {link ? (
+        <Link href={link}>{children}</Link>
+      ) : (
+        <Button
+          variant="plain"
+          h="auto"
+          p={0}
+          color="inherit"
+          fontSize="inherit"
+          lineHeight="inherit"
+          onClick={onClick}
+        >
+          {children}
+        </Button>
+      )}
     </Button>
   );
 }

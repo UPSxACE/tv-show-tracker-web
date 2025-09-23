@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 
 const link = new HttpLink({
   uri: `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`,
+  credentials: "include",
 });
 
 const client = new ApolloClient({
