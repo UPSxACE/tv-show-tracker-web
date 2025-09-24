@@ -1,8 +1,7 @@
-import { Button, Stack, Text } from "@chakra-ui/react";
+import { Stack, Text } from "@chakra-ui/react";
 import DeleteAccountButton from "./DeleteAccountButton";
 
 export default function Settings() {
-  // TODO: confirm modal!!
   return (
     <Stack
       as="main"

@@ -12,7 +12,7 @@ export default function Home() {
         xl: `calc(100svh - ${NAVBAR_HEIGHT.xl}px)`,
       }}
       as="main"
-      backgroundImage="url('./landing.jpg')"
+      backgroundImage="url('/landing.jpg')"
       backgroundSize="cover"
       backgroundPositionX="center"
       _before={{
