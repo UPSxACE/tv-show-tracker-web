@@ -1,12 +1,15 @@
 import { HStack, Image, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import type { GetTvShowsQuery } from "@/__generated__/graphql";
+import type { TvShow as TvShowType } from "@/__generated__/graphql";
 import imageFallback from "@/components/ui/utils/imageFallback";
 
 export default function TvShow({
   tvShow,
 }: {
-  tvShow: GetTvShowsQuery["allTvShows"]["content"][number];
+  tvShow: Pick<
+    TvShowType,
+    "__typename" | "id" | "name" | "posterUrl" | "voteAverage"
+  >;
 }) {
   return (
     <Stack

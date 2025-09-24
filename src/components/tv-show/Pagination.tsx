@@ -53,7 +53,7 @@ export default function Pagination({
         variant="ghost"
         size="lg"
       >
-        <PaginationPrevTrigger asChild>
+        <PaginationPrevTrigger asChild disabled={total === 0}>
           <IconButton>
             <LuChevronLeft />
           </IconButton>
@@ -70,7 +70,7 @@ export default function Pagination({
             </IconButton>
           )}
         />
-        <PaginationNextTrigger asChild>
+        <PaginationNextTrigger asChild disabled={total === 0}>
           <IconButton>
             <LuChevronRight />
           </IconButton>
@@ -82,13 +82,13 @@ export default function Pagination({
         variant="ghost"
         size="lg"
       >
-        <PaginationPrevTrigger asChild>
+        <PaginationPrevTrigger asChild disabled={total === 0}>
           <IconButton>
             <LuChevronLeft />
           </IconButton>
         </PaginationPrevTrigger>
-        <PaginationPageText />
-        <PaginationNextTrigger asChild>
+        {total > 0 && <PaginationPageText />}
+        <PaginationNextTrigger asChild disabled={total === 0}>
           <IconButton>
             <LuChevronRight />
           </IconButton>

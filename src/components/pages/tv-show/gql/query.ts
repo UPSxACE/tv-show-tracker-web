@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const GetTvShow = gql`
+export const GetTvShow = gql`
 query GetTvShow($id: Int!) {
     getTvShow(id: $id){
         __typename
@@ -15,6 +15,7 @@ query GetTvShow($id: Int!) {
         firstAirDate
         lastAirDate
         inProduction
+        favorite
         seasons {
             __typename
             id
@@ -44,4 +45,11 @@ query GetTvShow($id: Int!) {
 }
 `;
 
-export default GetTvShow;
+export const GetTvShowFavoriteInfo = gql`
+query GetTvShowFavoriteInfo($id: Int!) {
+    getTvShow(id: $id){
+        id
+        favorite
+    }
+}
+`;

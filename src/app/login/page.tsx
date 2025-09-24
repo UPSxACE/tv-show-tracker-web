@@ -1,5 +1,5 @@
 "use client";
-import { useMutation } from "@apollo/client/react";
+import { useApolloClient, useMutation } from "@apollo/client/react";
 import { Button, Center, Stack, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,6 +24,8 @@ type FormValues = {
 };
 
 export default function Login() {
+  const client = useApolloClient();
+
   const { reevaluate } = useSession();
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -43,6 +45,7 @@ export default function Login() {
   >(LoginUser, {
     onCompleted: () => {
       reevaluate();
+      client.resetStore();
       router.push("/");
     },
     onError: (error) => {

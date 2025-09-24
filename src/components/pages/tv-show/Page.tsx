@@ -21,6 +21,7 @@ import TextSection from "@/components/pages/tv-show/TextSection";
 import { CSS_NO_SCROLL } from "@/components/ui/common/css";
 import { NAVBAR_HEIGHT } from "@/components/ui/layout/constants";
 import imageFallback from "@/components/ui/utils/imageFallback";
+import FavoriteButton from "./FavoriteButton";
 
 export default function Page({
   tvShow,
@@ -72,9 +73,12 @@ export default function Page({
               flexGrow={1}
               minW="200px"
             >
-              <Text textStyle="3xl" fontWeight="bold">
-                {tvShow.name} {year && <Text as="span">({year})</Text>}
-              </Text>
+              <HStack gap={1}>
+                <Text textStyle="3xl" fontWeight="bold">
+                  {tvShow.name} {year && <Text as="span">({year})</Text>}
+                </Text>
+                <FavoriteButton tvShow={tvShow} />
+              </HStack>
               <HStack>
                 <Center bg="brand.cta" w="36px" h="36px" rounded="md">
                   <Text as="span" textStyle="md" fontWeight="bold">

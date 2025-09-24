@@ -1,9 +1,6 @@
 "use client";
 import { useQuery } from "@apollo/client/react";
 import {
-  For,
-  Grid,
-  Skeleton,
   Stack,
   TabsList,
   TabsRoot,
@@ -20,11 +17,10 @@ import {
   SortDirection,
   TvShowSortableField,
 } from "@/__generated__/graphql";
-import Pagination from "@/components/pages/tv-shows/Pagination";
+import TvShowDisplay from "@/components/tv-show/TvShowDisplay";
 import { CSS_NO_SCROLL } from "@/components/ui/common/css";
 import { NAVBAR_HEIGHT } from "@/components/ui/layout/constants";
 import GetTvShows from "./gql/query";
-import TvShow from "./TvShow";
 
 const PAGE_SIZE = 10;
 
@@ -128,32 +124,12 @@ export default function Page({ genres }: { genres: Genre[] }) {
             ))}
           </TabsList>
         </TabsRoot>
-        <Grid
-          templateColumns={{
-            base: "1fr",
-            sm: "repeat(2, 1fr)",
-            md: "repeat(3, 1fr)",
-            lg: "repeat(4, 1fr)",
-            xl: "repeat(5, 1fr)",
-          }}
-          gap={3}
-          mt={3}
-        >
-          {tvShows ? (
-            tvShows.map((t) => <TvShow key={t.id} tvShow={t} />)
-          ) : (
-            <For each={new Array(PAGE_SIZE).fill(true)}>
-              {(_, i) => <Skeleton key={i} h="260px" />}
-            </For>
-          )}
-        </Grid>
-        <VStack mt={6}>
-          <Pagination
-            page={page}
-            total={paginationTotal}
-            pageSize={PAGE_SIZE}
-          />
-        </VStack>
+        <TvShowDisplay
+          page={page}
+          pageSize={PAGE_SIZE}
+          total={paginationTotal}
+          tvShows={tvShows}
+        />
       </Stack>
     </VStack>
   );
