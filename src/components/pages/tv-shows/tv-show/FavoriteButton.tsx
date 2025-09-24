@@ -87,7 +87,7 @@ export default function FavoriteButton({
   };
 
   const tooltip = useDelayedValue(
-    favorited ? "Save favorite" : "Unfavorite",
+    favorited ? "Unfavorite" : "Save favorite",
     500,
   );
 

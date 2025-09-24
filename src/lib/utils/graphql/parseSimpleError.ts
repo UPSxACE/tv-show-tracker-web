@@ -24,7 +24,7 @@ export default function parseSimpleError(
 
 const simpleErrorSchema = z.object({
   extensions: z.object({
-    classification: z.enum(["BAD_REQUEST", "FORBIDDEN"]),
+    classification: z.enum(["BAD_REQUEST", "FORBIDDEN", "NOT_FOUND"]),
   }),
   message: z.string(),
 });

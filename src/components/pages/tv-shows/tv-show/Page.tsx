@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import type { GetTvShowQuery } from "@/__generated__/graphql";
-import TextSection from "@/components/pages/tv-show/TextSection";
+import TextSection from "@/components/pages/tv-shows/tv-show/TextSection";
 import { CSS_NO_SCROLL } from "@/components/ui/common/css";
 import { NAVBAR_HEIGHT } from "@/components/ui/layout/constants";
 import imageFallback from "@/components/ui/utils/imageFallback";

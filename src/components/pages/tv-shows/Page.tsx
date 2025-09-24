@@ -17,7 +17,7 @@ import {
   SortDirection,
   TvShowSortableField,
 } from "@/__generated__/graphql";
-import TvShowDisplay from "@/components/tv-show/TvShowDisplay";
+import TvShowDisplay from "@/components/pages/tv-shows/components/TvShowDisplay";
 import { CSS_NO_SCROLL } from "@/components/ui/common/css";
 import { NAVBAR_HEIGHT } from "@/components/ui/layout/constants";
 import GetTvShows from "./gql/query";
@@ -110,6 +110,7 @@ export default function Page({ genres }: { genres: Genre[] }) {
           onValueChange={onGenreChange}
           variant="enclosed"
           mt={3}
+          mb={3}
           size="sm"
           w="full"
         >

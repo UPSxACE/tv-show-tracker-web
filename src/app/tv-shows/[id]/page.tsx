@@ -4,8 +4,8 @@ import type {
   GetTvShowQueryVariables,
 } from "@/__generated__/graphql";
 import { query } from "@/components/apollo/ApolloServerClient";
-import { GetTvShow } from "@/components/pages/tv-show/gql/query";
-import Page from "@/components/pages/tv-show/Page";
+import { GetTvShow } from "@/components/pages/tv-shows/tv-show/gql/query";
+import Page from "@/components/pages/tv-shows/tv-show/Page";
 import { safeParseInt } from "@/lib/utils/numbers";
 
 export default async function TvShow({

@@ -1,8 +1,8 @@
 import { For, Grid, Skeleton, VStack } from "@chakra-ui/react";
 import type { TvShow } from "@/__generated__/graphql";
-import EmptyState from "./EmptyState";
-import Pagination from "./Pagination";
-import TvShowComponent from "./TvShow";
+import EmptyState from "../components/EmptyState";
+import Pagination from "../components/Pagination";
+import TvShowComponent from "../components/TvShow";
 
 export default function TvShowDisplay({
   tvShows,
@@ -41,7 +41,6 @@ export default function TvShowDisplay({
           xl: "repeat(5, 1fr)",
         }}
         gap={3}
-        mt={3}
       >
         {tvShows ? (
           tvShows.map((t) => <TvShowComponent key={t.id} tvShow={t} />)
